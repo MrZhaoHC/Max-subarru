@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+ï»¿#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include<stdlib.h>
 #include<iostream>
@@ -17,9 +17,9 @@ int max_subarru(int* a, int l, int mid, int r)
 			left_max = sum;
 		}
 	}
-	 sum = 0;
+	sum = 0;
 	int right_max = -9999;
-	for (int i = mid+1; i <= r; i++)
+	for (int i = mid + 1; i <= r; i++)
 	{
 		sum = sum + a[i];
 		if (sum > right_max)
@@ -35,9 +35,9 @@ int maxsubarru(int* a, int l, int r)
 	if (l >= r)
 		return a[l];
 	int mid = (l + r) / 2;
-	int left_max=maxsubarru(a, l, mid);
-	int right_max=maxsubarru(a, mid + 1, r);
-	int mid_max=max_subarru(a, l, mid, r);
+	int left_max = maxsubarru(a, l, mid);
+	int right_max = maxsubarru(a, mid + 1, r);
+	int mid_max = max_subarru(a, l, mid, r);
 	if (left_max > right_max && left_max > mid_max)
 		return left_max;
 	else if (right_max > left_max && right_max > mid_max)
@@ -48,30 +48,43 @@ int maxsubarru(int* a, int l, int r)
 
 int subarry(int* a, int l, int r)
 {
-	return maxsubarru(a, l, r-1);
+	return maxsubarru(a, l, r - 1);
 }
 
-//×î´ó×ÓÊı×é·ÖÖÎËã·¨
+void findpoint(int* a, int n, int max)
+{
+	for (int i = 0; i < n; i++)
+	{
+		int sum = 0;
+		for (int j = i; j < n; j++)
+		{
+			sum += a[j];
+			if (sum == max)
+			{
+				cout << "X[" << i << "," << j << "]" << "=" << max;
+				return;
+			}
+		}
+	}
+}
+
+//æœ€å¤§å­æ•°ç»„åˆ†æ²»ç®—æ³•
 int main()
 {
-	int a[MAX] = { 0 };
+	//int a[MAX] = { 0 };
+	int* a;
 	int n = 0;
 	char o;
-	cout << "ÇëÊäÈëÒ»×éÊıÒÔ£¬·Ö¸î" << endl;
+	a = (int*)malloc(MAX * sizeof(int));
+	cout << "è¯·è¾“å…¥ä¸€ç»„æ•°ä»¥ï¼Œåˆ†å‰²" << endl;
 	do
-	{
+	{	
 		cin >> a[n++];
 	} while ((o = getchar()) == ',');
-	cout<< subarry(a, 0, n);
+
+	int max= subarry(a, 0, n);
+
+	findpoint(a, n,max);
 
 	return 0;
 }
-
-
-
-
-
-
-
-
-
